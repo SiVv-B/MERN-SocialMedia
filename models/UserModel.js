@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
+    picture: {
+      type: String,
+      default: "./uploads/profil/random-user.png"
+    },
     followers: {
       type: Array,
       default: [],

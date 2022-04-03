@@ -1,9 +1,22 @@
 const express = require('express')
-const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const helmet = require('helmet')
 const morgan = require('morgan')
+const cors = require("cors")
+
+const app = express()
+//what cors will authorize to access to the requests once we are in frontend :D :
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}
+app.use(cors(corsOptions));
+
 
 const authRoute = require('./routes/authRoutes')
 const userRoute = require('./routes/userRoutes')

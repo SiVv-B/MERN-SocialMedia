@@ -1,6 +1,8 @@
 const User = require('../models/UserModel')
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
+const multer = require("multer");
+
 
 //update user
 router.put('/:id', async (req, res) => {
@@ -108,7 +110,27 @@ router.put('/:id/unfollow', async (req, res) => {
 })
 
 
-//upload profile picture
+//upload files
+const fileStroageEngine = multer.diskStorage({
+  destination:(req, file, cb)=>{
+    cb(null,'./images')
+  },
+  filename:(req, file,cb)=>{
+    cb(null, Date.now() + "--" + file.originalname)
+  },
+})
 
+const upload = multer({ storage: fileStroageEngine })
+
+
+//check the gomycode video to upload profile picture :D
+
+
+ router.post('/upload-single', upload.single('image'),(req,res)=>{
+  console.log(req.file)
+  res.send('single file is uploaded with success')
+} ) 
+ 
+// to upload multiple files  https://www.youtube.com/watch?v=EVOFt8Its6I&t=795s
 
 module.exports = router
