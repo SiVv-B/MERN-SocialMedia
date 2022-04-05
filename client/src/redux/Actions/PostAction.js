@@ -1,4 +1,5 @@
 import {
+    ADD_POST,
     GET_ALL_POSTS,
     UPDATE_POST,
     GET_POST,
@@ -6,6 +7,19 @@ import {
   } from './ActionTypes'
   import axios from 'axios'
   
+
+
+  export const addPost = (post) => async (dispatch) => {
+    try {
+      console.log(post)
+      const response = await axios.post("/api/posts", post)
+      dispatch({type:ADD_POST,payload:response.data})
+  } catch (error) {
+    console.log(error)
+  }
+  }
+  
+
   export const Getposts = () => async (dispatch) => {
     try {
       const response = await axios.get('/api/posts')
