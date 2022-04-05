@@ -1,54 +1,45 @@
-import React,{useState} from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { register } from '../../redux/Actions/AuthActions'
 
 const SignInForm = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [user, setUser] = useState({
+    username: '',
+    email: '',
+    password: '',
+  })
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const usernameError = document.querySelector(".username.error");
-    const emailError = document.querySelector(".email.error");
-    const passwordError = document.querySelector(".password.error");
+  const handleChange = (event) => {
+    setUser({ ...user, [event.target.id]: event.target.value })
+  }
 
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/user/login`,
-      withCredentials: true,
-      data: {
-        username,
-        email,
-        password,
-      },
+  const onSubmit = (event) => {
+    event.preventDefault()
+    dispatch(register(user, navigate))
+    setUser({
+      username: '',
+      email: '',
+      password: '',
     })
-      .then((res) => {
-        console.log(res);
-        if (res.data.errors) {
-          usernameError.innerHTML = res.data.errors.username;
-          emailError.innerHTML = res.data.errors.email;
-          passwordError.innerHTML = res.data.errors.password;
-        } else {
-          window.location = "/";
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+    console.log('from signin onSubmit has been submitted')
+
+  }
 
   return (
-    <form action="" onSubmit={handleLogin} id="sign-up-form">
-      <label htmlFor="email">Username</label>
+    <form action="" onSubmit={onSubmit} id="sign-up-form">
+      <label htmlFor="username">Username</label>
       <br />
       <input
         type="text"
-        name="email"
-        id="email"
-        onChange={(e) => setUsername(e.target.value)}
-        value={username}
+        name="username"
+        id="username"
+        onChange={handleChange}
+        value={user.username}
       />
-      <div className="email error"></div>
+      <div className="username error"></div>
       <br />
       <label htmlFor="email">Email</label>
       <br />
@@ -56,8 +47,8 @@ const SignInForm = () => {
         type="text"
         name="email"
         id="email"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
+        onChange={handleChange}
+        value={user.email}
       />
       <div className="email error"></div>
       <br />
@@ -67,8 +58,8 @@ const SignInForm = () => {
         type="password"
         name="password"
         id="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
+        onChange={handleChange}
+        value={user.password}
       />
       <div className="password error"></div>
       <br />

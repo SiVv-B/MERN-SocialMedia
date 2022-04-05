@@ -6,10 +6,9 @@ import {
   } from '../Actions/ActionTypes'
   const initialState = {
     users: [], user:null, loading: true, isAuth: false,}
+
   const AuthReducer = (state = initialState, action) => {
     switch (action.type) {
-     /*  case GET_ALL_USERS:
-        return { ...state, users: action.payload }  */
         case USER_RGISTER :
           localStorage.setItem("token", action.payload.token)
           return {...state,user:action.payload.newUser,loading:false,isAuth:true}

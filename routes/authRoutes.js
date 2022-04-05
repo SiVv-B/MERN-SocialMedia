@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const isAuth=require('../Middlewares/AuthToken');
+const isAuth=require('../Middlewares/isAuth');
 
 const {registerController,loginController} = require('../Controllers/AuthControllers')
 const {validation}=require('../Middlewares/Validaition')

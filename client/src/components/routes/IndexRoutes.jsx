@@ -8,6 +8,7 @@ import {
 import Home from "../../pages/Home"
 import Profile from '../../pages/Profile'
 import Trending from '../../pages/Trending'
+import SignInForm from '../authentification/SignInForm'
 
 
   
@@ -18,6 +19,7 @@ import Trending from '../../pages/Trending'
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/profile" element={< Profile/>} />
+            <Route path="/signin" element={< SignInForm/>} />
             <Route path="/trending" element={<Trending/>} />
             
          {/*    <Route path="/login" element={user ? <Navigate to ='/'/> : <Login/>} />
