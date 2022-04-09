@@ -19,7 +19,7 @@ const UserReducer = (state = initialState, action) => {
     case UPDATE_USER:
       return { ...state, user: action.payload }
     case GET_USER:
-      return { ...state, user: action.payload, message: 'get users works' }
+      return { ...state, user: action.payload, message: 'get one user works' }
     case DELETE_USER:
       return { ...state, user: action.payload }
     default:

@@ -1,12 +1,15 @@
 
-import React from "react"
-import Routers from './components/routes/IndexRoutes'
+import React, { useEffect, useState } from "react";
+import Routes from './components/routes/IndexRoutes'
+
+
 
 function App() {
+
   return (
-    <div className="App">
-<Routers/>
-    </div>
+    <div>
+      <Routes />
+      </div>
   );
 }
 

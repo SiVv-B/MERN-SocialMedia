@@ -7,6 +7,8 @@ const cors = require("cors")
 const authRoute=require("./routes/authRoutes")
 const userRoute = require('./routes/userRoutes')
 const postRoute = require('./routes/postRoutes')
+const isAuth = require('./Middlewares/isAuth')
+const checkUser = require ("./Middlewares/isAuth")
 
 dotenv.config()
 const app = express()
@@ -36,14 +38,20 @@ mongoose.connect(
   },
 )
 
-//middleware
 app.use(express.json())
 app.use(helmet())
 app.use(morgan('common'))
 
+//routes
 app.use("/api/auth", authRoute)
 app.use('/api/users', userRoute) 
 app.use('/api/posts', postRoute)
+
+//JWT
+
+app.get('/jwtid', isAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id)
+});
 
 app.listen(8800, () => {
   console.log('Backend server is running!')

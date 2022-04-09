@@ -24,7 +24,7 @@ const SignInForm = () => {
       email: '',
       password: '',
     })
-    console.log('from signin onSubmit has been submitted')
+    console.log('from signin onSubmit the user has been registred')
 
   }
 

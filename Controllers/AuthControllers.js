@@ -28,7 +28,7 @@ const registerController = async (request, response) => {
       },
       process.env.KEY,
     )
-
+console.log(`the user ${newUser.username} is registred`)
     response.status(200).json({ newUser, token })
   } catch (error) {
     console.log('from authcontroller', error)
@@ -68,7 +68,7 @@ const loginController = async (request, response) => {
         .json({ errors: [{ msg: 'Mot de pass incorrect' }] })
     }
     if (result == true) {
-      const token = await jwt.sign(
+      const token = /* await */ jwt.sign(
         {
           username: searchedUser.username,
           email: searchedUser.email,
@@ -76,6 +76,7 @@ const loginController = async (request, response) => {
         },
         process.env.KEY,
       )
+      console.log(`the user ${searchedUser.username} is online this is the token ${searchedUser.token}`)
 
       response.status(200).json({ searchedUser, token })
     }
